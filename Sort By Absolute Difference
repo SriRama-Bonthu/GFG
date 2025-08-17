@@ -1,0 +1,54 @@
+import java.util.Arrays;
+class Solution {
+    public void rearrange(int[] arr, int x) {//[10,5,3,9,2]
+        // code here
+        int[] dup=new int[arr.length];
+        for(int i=0;i<arr.length;i++){
+            dup[i]=Math.abs(x-arr[i]);//[3,2,4,2,5]
+        }
+        Arrays.sort(dup);//[2,2,3,4,5]
+        boolean[] visit=new boolean[dup.length];
+        boolean[] arvisit=new boolean[arr.length];
+        int l=0;
+        int[] newbox=new int[arr.length];
+        for(int i=0;i<dup.length;i++){
+            for(int j=0;j<arr.length;j++){
+                if((x-dup[i]==arr[j] || x+dup[i]==arr[j]) && !arvisit[j]){
+                    newbox[i]=arr[j];
+                    arvisit[j]=true;
+                    break;
+                
+                }
+               
+            }
+        }
+        for(int k=0;k<newbox.length;k++){
+            arr[k]=newbox[k];
+        }
+    }
+
+
+///It gives run time error for some test cases.....Optimized Code----->>>
+
+
+import java.util.Arrays;
+class Solution {
+    public void rearrange(int[] arr, int x) {//[10,5,3,9,2]
+       
+        Integer[] temp = Arrays.stream(arr).boxed().toArray(Integer[]::new);
+
+       
+        Arrays.sort(temp, (a, b) -> {
+            int diff = Math.abs(a - x) - Math.abs(b - x);
+            return diff != 0 ? diff : 0; 
+        });
+
+    
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = temp[i];
+        }
+    
+    }
+}
+
+}
