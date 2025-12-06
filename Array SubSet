@@ -1,0 +1,19 @@
+
+class Solution {
+    public boolean isSubset(int a[], int b[]) {
+        // Your code here
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        HashMap<Integer,Integer> hm2=new HashMap<>();
+        for(int i:b){
+            hm.put(i,hm.getOrDefault(i,0)+1);
+            
+        }
+        for(int j:a){
+            if(hm.containsKey(j)) hm.put(j,hm.get(j)-1);
+        }
+        for(int c:hm.values()){
+            if(c>0) return false;
+        }
+        return true;
+    }
+}
