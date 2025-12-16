@@ -1,0 +1,27 @@
+/*
+class Node {
+    int data;
+    Node next;
+
+    Node(int x) {
+        data = x;
+        next = null;
+    }
+} */
+
+class Solution {
+    int getMiddle(Node head) {
+        // code here
+        int length=1;
+        Node temp=head;
+        while(temp.next!=null){
+            temp=temp.next;
+            length++;
+        }
+        Node res=head;
+        for(int i=0;i<length/2;i++){
+            res=res.next;
+        }
+        return res.data;
+    }
+}
