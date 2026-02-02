@@ -1,0 +1,27 @@
+class Solution {
+    public int maxCircularSum(int arr[]) {
+        // code here
+        int totalSum=0;
+        
+        for(int i:arr){
+            totalSum+=i;
+        }
+        int currMax=arr[0];
+        int globalMax=arr[0];
+        for(int i=1;i<arr.length;i++){
+            currMax=Math.max(arr[i],arr[i]+currMax);
+            globalMax=Math.max(globalMax,currMax);
+        }
+        int currMin=arr[0];
+        int globalMin=arr[0];
+        for(int i=1;i<arr.length;i++){
+            currMin=Math.min(arr[i],arr[i]+currMin);
+            globalMin=Math.min(globalMin,currMin);
+        }
+        if(globalMax<0){
+            return globalMax;
+        }
+        return Math.max(globalMax,totalSum-globalMin);
+        
+    }
+}
