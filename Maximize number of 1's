@@ -1,0 +1,23 @@
+class Solution {
+    public int maxOnes(int arr[], int k) {
+        // code here
+        int i=0;
+        int j=0;
+        int m=k;
+        int max=0;
+        while(i<arr.length){
+            while(j<arr.length && (arr[j]==1 || (arr[j]==0 && m>0))){
+                if(arr[j]==0){
+                    m--;
+                }
+                max=Math.max(max,j-i+1);
+                j++;
+            }
+            if(arr[i]==0){
+                m++;
+            }
+            i++;
+        }
+        return max;
+    }
+}
