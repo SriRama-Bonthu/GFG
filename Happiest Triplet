@@ -1,0 +1,52 @@
+class Solution {
+    int[] smallestDiff(int[] a, int[] b, int[] c) {
+        // Step 1: Sort all three arrays
+        Arrays.sort(a);
+        Arrays.sort(b);
+        Arrays.sort(c);
+
+        int i = 0, j = 0, k = 0;
+        int cond = Integer.MAX_VALUE;
+        int[] ans = new int[3];
+
+        // Step 2: Three-pointer traversal
+        while (i < a.length && j < b.length && k < c.length) {
+            int minVal = Math.min(a[i], Math.min(b[j], c[k]));
+            int maxVal = Math.max(a[i], Math.max(b[j], c[k]));
+            int diff = maxVal - minVal;
+
+            // Update answer if better diff found
+            if (diff < cond) {
+                cond = diff;
+                ans[0] = a[i];
+                ans[1] = b[j];
+                ans[2] = c[k];
+            } else if (diff == cond) {
+                // Tie-breaker: smaller sum
+                int sum = a[i] + b[j] + c[k];
+                int bestSum = ans[0] + ans[1] + ans[2];
+                if (sum < bestSum) {
+                    ans[0] = a[i];
+                    ans[1] = b[j];
+                    ans[2] = c[k];
+                }
+            }
+
+            // Step 3: Move the pointer at the minimum element
+            if (a[i] == minVal) {
+                i++;
+            } else if (b[j] == minVal) {
+                j++;
+            } else {
+                k++;
+            }
+        }
+        Arrays.sort(ans);
+        int[] res=new int[3];
+        for(int l=2;l>=0;l--){
+            res[2-l]=ans[l];
+        }
+
+        return res;
+    }
+}
