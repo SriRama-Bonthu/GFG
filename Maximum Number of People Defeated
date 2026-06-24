@@ -1,0 +1,15 @@
+class Solution {
+    int maxPeopleDefeated(int p) {
+        // code here
+        int s=0;
+        int c=0;
+        for(int i=1;i<=p;i++){
+            s=s+(int)(Math.pow(i,2));
+            if(p<s){
+                break;
+            }
+            c++;
+        }
+        return c;
+    }
+};
