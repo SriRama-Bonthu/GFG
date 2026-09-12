@@ -1,0 +1,46 @@
+import java.util.Arrays;
+
+class Solution {
+    public int maxProduct(int[] arr, int k) {
+        int n = arr.length;
+        Arrays.sort(arr);
+        
+        int product = 1;
+
+        // Case 1: If maximum product is guaranteed to be <= 0
+        // (All elements negative/zero and k is odd)
+        if (arr[n - 1] <= 0 && k % 2 != 0) {
+            for (int i = n - 1; i >= n - k; i--) {
+                product *= arr[i];
+            }
+            return product;
+        }
+
+        int l = 0;
+        int r = n - 1;
+
+        // If k is odd, take the largest positive element first to make k even
+        if (k % 2 != 0) {
+            product *= arr[r];
+            r--;
+            k--;
+        }
+
+        // Now k is even, pick pairs greedily
+        while (k > 0) {
+            int leftProduct = arr[l] * arr[l + 1];
+            int rightProduct = arr[r] * arr[r - 1];
+
+            if (leftProduct > rightProduct) {
+                product *= leftProduct;
+                l += 2;
+            } else {
+                product *= rightProduct;
+                r -= 2; // Move pointer by 2, not 1
+            }
+            k -= 2; // Always reduce k by 2 since a pair is consumed
+        }
+
+        return product;
+    }
+}
